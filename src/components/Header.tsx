@@ -1,7 +1,7 @@
 import React from "react";
 import ConnectWallet from "./ConnectWallet";
 
-const vibeLogo = "/vibeChain.png";
+const vibeLogo = "/vibechain/vibeChain.png";
 
 interface HeaderProps {
   address: string | null;

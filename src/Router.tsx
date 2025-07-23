@@ -9,7 +9,7 @@ import Home from "./pages/Home";
 
 
 const Router: React.FC = () => (
-  <BrowserRouter>
+  <BrowserRouter basename="/vibechain">
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/sobre" element={<About />} />
