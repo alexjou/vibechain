@@ -4,25 +4,19 @@ pragma solidity ^0.8.19;
 
 import "./Bank.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract ProxyVaultFactory is ReentrancyGuard {
+contract ProxyVaultFactory is ReentrancyGuard, Ownable {
     uint256 public constant MAX_TX = 100;
     address[] public vaults;
-    mapping(address => address) public clientToVault;
-    uint256 public transactionCount;
-    address public currentVault;
-    address public owner;
+    mapping(address => address) private clientToVault;
+    uint256 private transactionCount;
+    address private currentVault;
 
     event NewVault(address vault);
     event NewTransaction(address client, address vault, uint256 transactionCount);
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only owner");
-        _;
-    }
-
-    constructor() {
-        owner = msg.sender;
+    constructor() Ownable(msg.sender) {
         _createNewVault();
     }
 
