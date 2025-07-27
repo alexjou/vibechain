@@ -5,7 +5,8 @@ const vibeLogo = "/vibechain/vibeChain.png";
 
 interface HeaderProps {
   address: string | null;
-  onConnect: (addr: string) => void;
+  onConnect: (addr: string | null) => void;
+  walletBalance?: string;
 }
 
 
@@ -18,7 +19,7 @@ const Toast: React.FC<{ msg: string; type: 'success' | 'error'; onClose: () => v
   </div>
 );
 
-const Header: React.FC<HeaderProps & { toastMsg?: string; toastType?: 'success' | 'error'; onToastClose?: () => void }> = ({ address, onConnect, toastMsg, toastType, onToastClose }) => {
+const Header: React.FC<HeaderProps & { toastMsg?: string; toastType?: 'success' | 'error'; onToastClose?: () => void }> = ({ address, onConnect, toastMsg, toastType, onToastClose, walletBalance }) => {
   return (
     <>
       {/* Toast de notificação */}
@@ -30,8 +31,13 @@ const Header: React.FC<HeaderProps & { toastMsg?: string; toastType?: 'success' 
           <img src={vibeLogo} alt="Logo VibeChain" className="w-10 h-10 rounded-lg shadow border-2 border-pink-200 bg-white object-contain" />
           <span className="text-3xl font-extrabold text-pink-500 tracking-tight drop-shadow-sm">VibeChain</span>
         </div>
-        {/* Menu mobile */}
-        <div className="md:hidden flex items-center">
+        <div className="flex items-center gap-4">
+          {/* Exibe endereço e saldo quando conectado */}
+          {address && (
+            <span className="text-base font-semibold text-blue-600 bg-blue-100 rounded-lg px-3 py-1">
+              {address.slice(0, 6)}...{address.slice(-4)}: {walletBalance === "-" ? "..." : walletBalance + " ETH"}
+            </span>
+          )}
           <ConnectWallet onConnect={onConnect} address={address} />
         </div>
       </header>

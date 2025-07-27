@@ -15,7 +15,7 @@ const walletIcon = (
   </svg>
 );
 
-const ConnectWallet: React.FC<{ onConnect: (address: string) => void, address: string | null }> = ({ onConnect, address }) => {
+const ConnectWallet: React.FC<{ onConnect: (address: string | null) => void, address: string | null }> = ({ onConnect, address }) => {
   const handleConnect = async () => {
     if (window.ethereum) {
       try {
@@ -30,20 +30,28 @@ const ConnectWallet: React.FC<{ onConnect: (address: string) => void, address: s
     }
   };
 
+  if (address) {
+    return (
+      <button
+        className="flex items-center gap-2 px-5 py-2 rounded-full font-semibold shadow-lg transition-all duration-200 border-2 border-red-400 bg-gradient-to-r from-red-400 to-red-600 text-white hover:scale-105 hover:shadow-xl"
+        onClick={() => onConnect(null)}
+        style={{ minWidth: 180 }}
+      >
+        <svg className="w-5 h-5 mr-2 inline-block" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        <span>Sair</span>
+      </button>
+    );
+  }
   return (
     <button
-      className={`flex items-center gap-2 px-5 py-2 rounded-full font-semibold shadow-lg transition-all duration-200 border-2 border-primary focus:outline-none focus:ring-2 focus:ring-primary/50
-        ${address ? 'bg-gradient-to-r from-green-500 to-green-700 text-white cursor-default' : 'bg-gradient-to-r from-primary to-blue-600 text-white hover:scale-105 hover:shadow-xl'}`}
+      className="flex items-center gap-2 px-5 py-2 rounded-full font-semibold shadow-lg transition-all duration-200 border-2 border-primary bg-gradient-to-r from-primary to-blue-600 text-white hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary/50"
       onClick={handleConnect}
-      disabled={!!address}
       style={{ minWidth: 180 }}
     >
       {walletIcon}
-      {address ? (
-        <span className="truncate">Carteira: {address.slice(0, 6)}...{address.slice(-4)}</span>
-      ) : (
-        <span>Conectar Carteira</span>
-      )}
+      <span>Conectar Carteira</span>
     </button>
   );
 };

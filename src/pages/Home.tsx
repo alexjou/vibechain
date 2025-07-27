@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
+import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import About from "../components/About";
@@ -8,382 +7,43 @@ import Impact from "../components/Impact";
 import Partners from "../components/Partners";
 import Header from "../components/Header";
 import ImpactCard from "../components/ImpactCard";
+import { DonationProvider } from "../contexts/DonationContext";
+import { useDonation } from "../hooks/useDonation";
 
 // Imagem alegre de crianças correndo (pode ser substituída por uma imagem real depois)
 const kidsImg = "https://escoladainteligencia.com.br/wp-content/uploads/2016/09/familia.jpg";
 
-const Home: React.FC = () => {
-  const [address, setAddress] = useState<string | null>(null);
-  const [donating, setDonating] = useState(false);
-  const [saldo, setSaldo] = useState<string>("-");
-  const [toast, setToast] = useState<{ msg: string; type: 'success' | 'error' } | null>(null);
-  const [loadingSaldo, setLoadingSaldo] = useState(false);
 
-  const handleConnect = (addr: string) => {
-    setAddress(addr);
-  };
+const HomeContent: React.FC = () => {
+  const { address, setAddress, saldo, loadingSaldo, donating, toast, setToast, fetchSaldo, handleDonate, walletBalance, fetchWalletBalance } = useDonation();
   useEffect(() => {
     AOS.init({ duration: 900, once: true, offset: 80 });
   }, []);
 
-  // Endereço do contrato ProxyCofreFactory e ABI mínima
-  const proxyCofreFactoryAddress = "0x3DCC470bBb6E0BeB81eB5d2DF26dd35E94633b12";
-  const proxyCofreFactoryAbi = [
-    {
-      "inputs": [],
-      "name": "forcarNovoCofre",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "cliente",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "cofre",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "txCount",
-          "type": "uint256"
-        }
-      ],
-      "name": "NovaTransacao",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "cofre",
-          "type": "address"
-        }
-      ],
-      "name": "NovoCofre",
-      "type": "event"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "cliente",
-          "type": "address"
-        }
-      ],
-      "name": "registrarTransacao",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "index",
-          "type": "uint256"
-        }
-      ],
-      "name": "removerCofre",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "clienteToCofre",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "cofres",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "currentCofre",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getCofres",
-      "outputs": [
-        {
-          "internalType": "address[]",
-          "name": "",
-          "type": "address[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getCurrentCofre",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "MAX_TX",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "owner",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "txCount",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    }
-  ]
-  const cofreAbi = [
-    {
-      "inputs": [],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "de",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "valor",
-          "type": "uint256"
-        }
-      ],
-      "name": "Deposito",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "para",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "valor",
-          "type": "uint256"
-        }
-      ],
-      "name": "Saque",
-      "type": "event"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "usuario",
-          "type": "address"
-        }
-      ],
-      "name": "consultarSaldo",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "creditos",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "depositar",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "valor",
-          "type": "uint256"
-        }
-      ],
-      "name": "sacar",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ]
 
-  // Buscar saldo total do cofre atual
-  const fetchSaldo = async () => {
-    setLoadingSaldo(true);
-    try {
-      const eth = (window as any).ethereum;
-      if (!eth) throw new Error("Wallet não encontrada");
-      const provider = new ethers.BrowserProvider(eth);
-      const proxy = new ethers.Contract(proxyCofreFactoryAddress, proxyCofreFactoryAbi, provider);
-      const cofreAddr = await proxy.getCurrentCofre();
-      const saldoWei = await provider.getBalance(cofreAddr);
-      setSaldo(ethers.formatEther(saldoWei));
-    } catch {
-      setSaldo("-");
-    }
-    setLoadingSaldo(false);
-  };
-
+  // Buscar saldo do cofre e da carteira ao conectar carteira
   useEffect(() => {
-    if (address) fetchSaldo();
+    if (address) {
+      fetchSaldo();
+      fetchWalletBalance(address);
+    }
     // eslint-disable-next-line
   }, [address]);
-
-  // Doação para o cofre atual
-  const handleDonate = async (amount: string) => {
-    setDonating(true);
-    try {
-      const eth = (window as any).ethereum;
-      if (!eth) throw new Error("Wallet não encontrada");
-      const provider = new ethers.BrowserProvider(eth);
-      await provider.send("eth_requestAccounts", []);
-      const signer = await provider.getSigner();
-      const proxy = new ethers.Contract(proxyCofreFactoryAddress, proxyCofreFactoryAbi, signer);
-      const cofreAddr = await proxy.getCurrentCofre();
-      const cofre = new ethers.Contract(cofreAddr, cofreAbi, signer);
-      const tx = await cofre.depositar({ value: ethers.parseEther(amount) });
-      await tx.wait();
-      setToast({ msg: "Doação enviada com sucesso!", type: "success" });
-      fetchSaldo();
-    } catch (e) {
-      let reason = "";
-      if (typeof e === "object" && e && "reason" in e) reason = (e as any).reason;
-      else if (typeof e === "object" && e && "message" in e) reason = (e as any).message;
-      setToast({ msg: "Erro ao doar: " + reason, type: "error" });
-    }
-    setDonating(false);
-  };
 
   return (
     <div className="w-full min-h-screen h-[100dvh] bg-gradient-to-br from-[#f8fafc] via-[#a7e9fb] to-[#fbc2eb] flex flex-col font-sans overflow-x-hidden">
       {/* Header extraído para componente próprio */}
+
       <Header
         address={address}
-        onConnect={handleConnect}
+        onConnect={setAddress}
+        walletBalance={walletBalance}
         toastMsg={toast?.msg}
         toastType={toast?.type}
         onToastClose={() => setToast(null)}
       />
 
+      {/* Saldo da carteira agora aparece no Header */}
       {/* Hero/banner principal */}
       {/* Mensagem de feedback removida, agora via toast */}
       <section className="relative flex flex-col md:flex-row items-center justify-center px-4 py-12 w-full flex-1 gap-12 bg-gradient-to-br from-[#fbc2eb]/60 via-[#a7e9fb]/60 to-[#f8fafc]/60" data-aos="fade-up">
@@ -416,11 +76,13 @@ const Home: React.FC = () => {
             <span className="text-2xl font-bold text-[#232946] mb-3">Faça sua doação</span>
             <form onSubmit={e => {
               e.preventDefault();
-              const target = e.target as typeof e.target & { valor: { value: string } };
+              const target = e.target as typeof e.target & { valor: { value: string }, mensagem: { value: string } };
               const v = target.valor.value;
-              if (v) handleDonate(v);
+              const m = target.mensagem.value;
+              if (v && m) handleDonate(v, m);
             }} className="flex flex-col gap-4 items-center w-full">
               <input name="valor" type="number" min="0.001" step="0.001" placeholder="Valor em ETH" className="px-5 py-3 rounded border border-gray-300 focus:outline-pink-400 text-xl w-full" required disabled={!address || donating} />
+              <input name="mensagem" type="text" maxLength={120} placeholder="Mensagem de esperança (opcional)" className="px-5 py-3 rounded border border-gray-300 focus:outline-blue-400 text-xl w-full" disabled={!address || donating} />
               <button type="submit" className="px-8 py-3 rounded-full bg-pink-500 text-white font-bold hover:bg-pink-600 transition disabled:opacity-60 w-full text-lg" disabled={!address || donating}>Doar agora</button>
             </form>
             <span className="text-base text-[#232946]/70 mt-3 text-center">Doe qualquer valor em ETH e ajude a transformar vidas. Sua doação é registrada na blockchain!</span>
@@ -521,5 +183,11 @@ const Home: React.FC = () => {
     </div>
   );
 };
+
+const Home: React.FC = () => (
+  <DonationProvider>
+    <HomeContent />
+  </DonationProvider>
+);
 
 export default Home;
