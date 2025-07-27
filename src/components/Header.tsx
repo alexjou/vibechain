@@ -31,7 +31,7 @@ const Header: React.FC<{ toastMsg?: string; toastType?: 'success' | 'error'; onT
           {/* Exibe endereço e saldo quando conectado */}
           {address && (
             <span className="text-base font-semibold text-blue-600 bg-blue-100 rounded-lg px-3 py-1">
-              {address.slice(0, 6)}...{address.slice(-4)}: {walletBalance === "-" ? "..." : walletBalance + " ETH"}
+              {`${address}: ${walletBalance === "-" ? "..." : `${Number(walletBalance).toFixed(2)} ETH`}`}
             </span>
           )}
           <ConnectWallet onConnect={setAddress} address={address} />
