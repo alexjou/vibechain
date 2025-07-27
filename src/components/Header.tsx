@@ -1,16 +1,9 @@
 import React from "react";
-// import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
 import ConnectWallet from "./ConnectWallet";
+import { useDonation } from '../hooks/useDonation';
 
 const vibeLogo = "/vibechain/vibeChain.png";
-
-interface HeaderProps {
-  address: string | null;
-  onConnect: (addr: string | null) => void;
-  walletBalance?: string;
-}
-
 
 // Toast de notificação
 const Toast: React.FC<{ msg: string; type: 'success' | 'error'; onClose: () => void }> = ({ msg, type, onClose }) => (
@@ -21,8 +14,8 @@ const Toast: React.FC<{ msg: string; type: 'success' | 'error'; onClose: () => v
   </div>
 );
 
-const Header: React.FC<HeaderProps & { toastMsg?: string; toastType?: 'success' | 'error'; onToastClose?: () => void }> = ({ address, onConnect, toastMsg, toastType, onToastClose, walletBalance }) => {
-  // const { i18n } = useTranslation();
+const Header: React.FC<{ toastMsg?: string; toastType?: 'success' | 'error'; onToastClose?: () => void }> = ({ toastMsg, toastType, onToastClose }) => {
+  const { address, setAddress, walletBalance } = useDonation();
   return (
     <>
       {/* Toast de notificação */}
@@ -41,7 +34,7 @@ const Header: React.FC<HeaderProps & { toastMsg?: string; toastType?: 'success' 
               {address.slice(0, 6)}...{address.slice(-4)}: {walletBalance === "-" ? "..." : walletBalance + " ETH"}
             </span>
           )}
-          <ConnectWallet onConnect={onConnect} address={address} />
+          <ConnectWallet onConnect={setAddress} address={address} />
           {/* Seletor de idioma com bandeira */}
           <LanguageSelector />
         </div>

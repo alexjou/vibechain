@@ -1,28 +1,69 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
+import { useDonation } from '../hooks/useDonation';
 
+const Impact: React.FC = () => {
+  const { t } = useTranslation();
+  const {
+    saldo,
+    loadingSaldo,
+    donating,
+    fetchSaldo,
+    handleDonate,
+    address
+  } = useDonation();
 
-const Impact: React.FC = () => (
-  <section className="py-16 px-4 max-w-3xl mx-auto text-center" id="impact">
-    <div className="inline-block bg-gradient-to-r from-primary to-blue-500 p-4 rounded-full shadow mb-4 animate-fade-in">
-      <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z" />
-      </svg>
-    </div>
-    <h2 className="text-4xl font-extrabold mb-4 text-primary drop-shadow">Impacto & <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600">Transparência</span></h2>
-    <p className="mb-6 text-lg text-gray-700 font-medium">
-      Veja abaixo o rastreamento das doações e o impacto gerado. Em breve, integraremos dados reais da blockchain Ethereum!
-    </p>
-    <div className="flex flex-col md:flex-row gap-6 justify-center items-center mt-8">
-      <div className="flex-1 bg-gradient-to-br from-green-100 to-green-50 rounded-lg shadow p-8 text-center">
-        <p className="text-lg font-semibold text-gray-700 mb-2">Total doado (simulado)</p>
-        <span className="text-3xl font-extrabold text-green-600">Ξ 12.5 ETH</span>
+  return (
+    <section className="w-full flex flex-col items-center pt-16 pb-4 bg-gradient-to-br from-[#fbc2eb]/40 via-[#a7e9fb]/40 to-[#f8fafc]/40" id="saldo-doacao">
+      <div className="flex flex-col md:flex-row gap-20 items-center justify-center w-full max-w-6xl">
+        <div className="bg-white/90 rounded-3xl shadow-2xl p-12 flex flex-col items-center border-2 border-[#a7e9fb] min-w-[320px] max-w-md w-full">
+          <span className="text-2xl font-bold text-[#232946] mb-3">{t('cofre_balance')}</span>
+          <span className="text-5xl font-extrabold text-blue-500 mb-4">{loadingSaldo ? '...' : saldo + ' ETH'}</span>
+          <button
+            onClick={fetchSaldo}
+            className="px-6 py-3 rounded-full bg-blue-400 text-white font-bold hover:bg-blue-500 transition mb-3 text-lg flex items-center justify-center gap-2 disabled:opacity-60"
+            disabled={loadingSaldo || donating}
+          >
+            {loadingSaldo && (
+              <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+              </svg>
+            )}
+            {t('update_balance')}
+          </button>
+          <span className="text-base text-[#232946]/70 text-center">{t('cofre_balance_desc')}</span>
+        </div>
+        <div className="bg-white/90 rounded-3xl shadow-2xl p-12 flex flex-col items-center border-2 border-[#fbc2eb] min-w-[320px] max-w-md w-full">
+          <span className="text-2xl font-bold text-[#232946] mb-3">{t('donate_title')}</span>
+          <form onSubmit={e => {
+            e.preventDefault();
+            const target = e.target as typeof e.target & { valor: { value: string }, mensagem: { value: string } };
+            const v = target.valor.value;
+            const m = target.mensagem.value;
+            if (v && m) handleDonate(v, m);
+          }} className="flex flex-col gap-4 items-center w-full">
+            <input name="valor" type="number" min="0.001" step="0.001" placeholder={t('donate_placeholder')} className="px-5 py-3 rounded border border-gray-300 focus:outline-pink-400 text-xl w-full" required disabled={!address || donating} />
+            <textarea name="mensagem" placeholder={t('donate_message_placeholder')} className="px-5 py-3 rounded border border-gray-300 focus:outline-blue-400 text-xl w-full min-h-[80px] resize-y" disabled={!address || donating} />
+            <button
+              type="submit"
+              className="px-8 py-3 rounded-full bg-pink-500 text-white font-bold hover:bg-pink-600 transition disabled:opacity-60 w-full text-lg flex items-center justify-center gap-2"
+              disabled={!address || donating || loadingSaldo}
+            >
+              {donating && (
+                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                </svg>
+              )}
+              {t('donate_button')}
+            </button>
+          </form>
+          <span className="text-base text-[#232946]/70 mt-3 text-center">{t('donate_desc')}</span>
+        </div>
       </div>
-      <div className="flex-1 bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg shadow p-8 text-center">
-        <p className="text-lg font-semibold text-gray-700 mb-2">Crianças beneficiadas (simulado)</p>
-        <span className="text-3xl font-extrabold text-blue-600">37</span>
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Impact;
