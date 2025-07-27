@@ -7,42 +7,52 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract ProxyVaultFactory is ReentrancyGuard, Ownable {
-    uint256 public constant MAX_TX = 100;
-    address[] public vaults;
-    mapping(address => address) private clientToVault;
-    uint256 private transactionCount;
-    address private currentVault;
+    uint256 private _maxTx;
+    address[] private _vaults;
+    mapping(address => address) private _clientToVault;
+    uint256 private _transactionCount;
+    address private _currentVault;
 
     event NewVault(address vault);
-    event NewTransaction(address client, address vault, uint256 transactionCount);
+    event NewTransaction(
+        address client,
+        address vault,
+        uint256 transactionCount
+    );
 
-    constructor() Ownable(msg.sender) {
+    constructor(uint256 maxTx) Ownable(msg.sender) {
+        require(maxTx > 0, "Max transactions must be greater than zero");
+        _maxTx = maxTx;
         _createNewVault();
     }
 
     function _createNewVault() internal {
         Bank newVault = new Bank();
-        currentVault = address(newVault);
-        vaults.push(currentVault);
-        transactionCount = 0;
-        emit NewVault(currentVault);
+        _currentVault = address(newVault);
+        _vaults.push(_currentVault);
+        _transactionCount = 0;
+        emit NewVault(_currentVault);
     }
 
     function getVaults() external view returns (address[] memory) {
-        return vaults;
+        return _vaults;
     }
 
     function getCurrentVault() public view returns (address) {
-        return currentVault;
+        return _currentVault;
+    }
+
+    function getMaxTx() external view returns (uint256) {
+        return _maxTx;
     }
 
     function registerTransaction(address client) external nonReentrant {
-        require(currentVault != address(0), "No active vault");
+        require(_currentVault != address(0), "No active vault");
         require(client != address(0), "Invalid client");
-        clientToVault[client] = currentVault;
-        transactionCount++;
-        emit NewTransaction(client, currentVault, transactionCount);
-        if (transactionCount >= MAX_TX) {
+        _clientToVault[client] = _currentVault;
+        _transactionCount++;
+        emit NewTransaction(client, _currentVault, _transactionCount);
+        if (_transactionCount >= _maxTx) {
             _createNewVault();
         }
     }
@@ -54,10 +64,10 @@ contract ProxyVaultFactory is ReentrancyGuard, Ownable {
 
     // Administrative function to remove a vault from the array (if necessary)
     function removeVault(uint256 index) external onlyOwner nonReentrant {
-        require(index < vaults.length, "Invalid index");
-        for (uint256 i = index; i < vaults.length - 1; i++) {
-            vaults[i] = vaults[i + 1];
+        require(index < _vaults.length, "Invalid index");
+        for (uint256 i = index; i < _vaults.length - 1; i++) {
+            _vaults[i] = _vaults[i + 1];
         }
-        vaults.pop();
+        _vaults.pop();
     }
 }

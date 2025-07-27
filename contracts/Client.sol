@@ -3,31 +3,31 @@ pragma solidity ^0.8.19;
 import "./IDonation.sol";
 
 contract Client {
-    address private vaultAddress;
-    address private owner;
-    event OwnerDeposit(address indexed ownerAddr, uint256 amount);
+    address private _vaultAddress;
+    address private _owner;
+    event OwnerDeposit(address indexed owner, uint256 amount, string message);
 
-    constructor(address _vault) {
-        require(_vault != address(0), "Vault address cannot be zero");
-        vaultAddress = _vault;
-        owner = msg.sender;
+    constructor(address vault) {
+        require(vault != address(0), "Vault address cannot be zero");
+        _vaultAddress = vault;
+        _owner = msg.sender;
     }
 
     modifier onlyOwner() {
         require(
-            msg.sender == owner,
-            "Only owner of this client contract can call this function"
+            msg.sender == _owner,
+            "Only the owner of this client contract can call this function"
         );
         _;
     }
 
     receive() external payable {}
 
-    function deposit() external payable onlyOwner {
-        require(msg.value > 0, "Need to send some Ether");
-        IDonation(vaultAddress).deposit{value: msg.value}();
-        emit OwnerDeposit(msg.sender, msg.value);
+    function deposit(string calldata message) external payable onlyOwner {
+        require(msg.value > 0, "Must send some Ether");
+        IDonation(_vaultAddress).depositExternal{value: msg.value}(message);
+        emit OwnerDeposit(msg.sender, msg.value, message);
     }
 
-    // Withdrawal function removed: only the Vault owner can withdraw directly from the vault.
+    // No withdraw function: only the Vault owner can withdraw directly from the Vault.
 }
