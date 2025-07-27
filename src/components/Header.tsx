@@ -1,4 +1,6 @@
 import React from "react";
+// import { useTranslation } from 'react-i18next';
+import LanguageSelector from './LanguageSelector';
 import ConnectWallet from "./ConnectWallet";
 
 const vibeLogo = "/vibechain/vibeChain.png";
@@ -20,6 +22,7 @@ const Toast: React.FC<{ msg: string; type: 'success' | 'error'; onClose: () => v
 );
 
 const Header: React.FC<HeaderProps & { toastMsg?: string; toastType?: 'success' | 'error'; onToastClose?: () => void }> = ({ address, onConnect, toastMsg, toastType, onToastClose, walletBalance }) => {
+  // const { i18n } = useTranslation();
   return (
     <>
       {/* Toast de notificação */}
@@ -39,6 +42,8 @@ const Header: React.FC<HeaderProps & { toastMsg?: string; toastType?: 'success' 
             </span>
           )}
           <ConnectWallet onConnect={onConnect} address={address} />
+          {/* Seletor de idioma com bandeira */}
+          <LanguageSelector />
         </div>
       </header>
     </>

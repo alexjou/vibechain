@@ -64,9 +64,9 @@ contract Bank is IDonation, Ownable {
         require(total >= amount, "Insufficient balance");
         // Remove donations until amount is covered
         uint256 remaining = amount;
-        uint256 i = 0;
-        while (remaining > 0 && i < _donations[msg.sender].length) {
-            Donation storage d = _donations[msg.sender][i];
+        uint256 j = 0;
+        while (remaining > 0 && j < _donations[msg.sender].length) {
+            Donation storage d = _donations[msg.sender][j];
             if (d.amount <= remaining) {
                 remaining -= d.amount;
                 d.amount = 0;
@@ -74,7 +74,7 @@ contract Bank is IDonation, Ownable {
                 d.amount -= remaining;
                 remaining = 0;
             }
-            i++;
+            j++;
         }
         (bool success, ) = payable(msg.sender).call{value: amount}("");
         require(success, "Transfer failed...");

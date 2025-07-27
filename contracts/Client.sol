@@ -28,6 +28,4 @@ contract Client {
         IDonation(_vaultAddress).depositExternal{value: msg.value}(message);
         emit OwnerDeposit(msg.sender, msg.value, message);
     }
-
-    // No withdraw function: only the Vault owner can withdraw directly from the Vault.
 }
