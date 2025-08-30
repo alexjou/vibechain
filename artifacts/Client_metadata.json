@@ -1,0 +1,107 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "vault",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					}
+				],
+				"name": "OwnerDeposit",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					}
+				],
+				"name": "deposit",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Client.sol": "Client"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Client.sol": {
+			"keccak256": "0x087712dd752aaf0cd1f418aaeab164c76287c4ec39de7a678f06cbd2d4c0fb8b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5120860862f6c915170168643a761efeef6b55e7fb785d57591eca5676f1227f",
+				"dweb:/ipfs/QmaBWuTSFcxE97CnXkbQWHDayVDSwYecgfWDJxuqMmLsgK"
+			]
+		},
+		"contracts/IControl.sol": {
+			"keccak256": "0x68d977a5d9299472fcda342cf3cdf947a8256223b25bb71d8996d0374e8a87b6",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a5910841c705fc92107c2cf7d39472713c95b72c3322dc10084a2c294dc4838c",
+				"dweb:/ipfs/QmVhBLiy92aXbv5WTtyr2tCTGPvfXDuw4ApqgKHbdVyzQC"
+			]
+		}
+	},
+	"version": 1
+}

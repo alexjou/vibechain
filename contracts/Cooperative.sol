@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
-import "./IDonation.sol";
+import "./IControl.sol";
 
-contract Client {
+contract Cooperative {
     address private _vaultAddress;
     address private _owner;
     event OwnerDeposit(address indexed owner, uint256 amount, string message);
@@ -25,7 +25,7 @@ contract Client {
 
     function deposit(string calldata message) external payable onlyOwner {
         require(msg.value > 0, "Must send some Ether");
-        IDonation(_vaultAddress).depositExternal{value: msg.value}(message);
+        IControl(_vaultAddress).depositExternal{value: msg.value}(message);
         emit OwnerDeposit(msg.sender, msg.value, message);
     }
 }
