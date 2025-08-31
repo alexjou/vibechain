@@ -347,6 +347,42 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "taskId",
+						"type": "uint256"
+					}
+				],
+				"name": "getDonations",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "donor",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "value",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "message",
+								"type": "string"
+							}
+						],
+						"internalType": "struct MangueChain.Donation[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "isPaused",
 				"outputs": [
@@ -523,22 +559,28 @@
 					"details": "Adds audit comments to a task."
 				},
 				"checkTask(uint256)": {
-					"details": "Marks a task as finished and releases 97.5% of donations."
+					"details": "Marks a task as finished and releases 97.5% of donations to the cooperative."
+				},
+				"constructor": {
+					"details": "Initializes the contract with the Crab token address and sets the owner."
 				},
 				"donateToTask(uint256,string)": {
-					"details": "Users donate to a specific task."
+					"details": "Allows users to donate to a specific task. Stores the donation message and mints an NFT as a reward."
 				},
 				"getCooperativeInfo(address)": {
-					"details": "Returns cooperative metadata."
+					"details": "Returns metadata of a registered cooperative."
+				},
+				"getDonations(uint256)": {
+					"details": "Returns all donations made to a task, including messages."
 				},
 				"isPaused()": {
-					"details": "Returns pause state."
+					"details": "Returns the current pause state."
 				},
 				"owner()": {
 					"details": "Returns the address of the current owner."
 				},
 				"pause()": {
-					"details": "Pauses the contract."
+					"details": "Pauses the contract, disabling sensitive operations."
 				},
 				"registerCooperative(address,string,string,string,string)": {
 					"details": "Deploys and registers a new Cooperative contract."
@@ -547,7 +589,7 @@
 					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
 				},
 				"retainedFees()": {
-					"details": "Returns retained fee balance."
+					"details": "Returns the current retained fee balance."
 				},
 				"setTask(address,string,string,uint256,string)": {
 					"details": "Creates a new cooperative task."
@@ -556,10 +598,10 @@
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
 				},
 				"unpause()": {
-					"details": "Unpauses the contract."
+					"details": "Unpauses the contract, re-enabling operations."
 				},
 				"withdrawFees()": {
-					"details": "Withdraws retained platform fees."
+					"details": "Withdraws retained platform fees to the owner's address."
 				}
 			},
 			"title": "MangueChain",
@@ -724,19 +766,19 @@
 			]
 		},
 		"contracts/CrabToken.sol": {
-			"keccak256": "0x4ae8f36755ed4f2912ffb82ba119393d3c1927d7fcb4372fa75b9d2ed270eb4e",
+			"keccak256": "0x7b0aa9499abceb33e8154481cecaa38905132b78629a3cbdc59774a94b3448da",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f045a44ec1594eb4390d4ae40bf16daf4e5b8d3ab9114c3a350708ceca80482e",
-				"dweb:/ipfs/QmcuDrScaogtzQowX3b29mw9x4uJtuC44itiQfgtWHkuhD"
+				"bzz-raw://b327176569b2ae37bd9a9dcb0281a3a0f9b251bf40d600e2a7b05b7248b2e0c1",
+				"dweb:/ipfs/Qma8iChdPCbiCy7oxEk6AYxEcQcUAQcGxf5SSXQo2DDpSQ"
 			]
 		},
 		"contracts/MangueChain.sol": {
-			"keccak256": "0x4a0397bec3f39722ec1ded4c26d899eb9fa29860c35ed94eca3e41e8cd4887e6",
+			"keccak256": "0x7e2a407a8fcf9f70f1e938eef3084badfb86a9d67317445116f4e63067724b12",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://76b09d89091ea0e22217d2577708c02b040f901e88fd6c2e10f6f55ee64965bf",
-				"dweb:/ipfs/QmUR8Z3mzow1zhcmwzc2LL6i432ZDLpC36SQufSm831LNA"
+				"bzz-raw://ee17f3df5037dce94605c306b6b062ad3db676e118c4a2630e910667ef9711c1",
+				"dweb:/ipfs/QmdGArgNfsw4uvaXUz67Yqqdh1HYMz5Kv4nqyAb1PsGJ3U"
 			]
 		}
 	},
