@@ -11,10 +11,49 @@
 						"internalType": "address",
 						"name": "vault",
 						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "name_",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "cnpj_",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "cpf_",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email_",
+						"type": "string"
 					}
 				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "CooperativeWithdrawal",
+				"type": "event"
 			},
 			{
 				"anonymous": false,
@@ -56,6 +95,32 @@
 			},
 			{
 				"inputs": [],
+				"name": "getCNPJ",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getCPF",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "getContractBalance",
 				"outputs": [
 					{
@@ -65,6 +130,71 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getEmail",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getName",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getVaultAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -100,11 +230,11 @@
 	},
 	"sources": {
 		"contracts/Cooperative.sol": {
-			"keccak256": "0x0a149f6b101fd5b82d8471d32a15827db9b5c092823ffcb99047f381e0388d66",
+			"keccak256": "0xa6e4467ddfc393c5af1c8e9d64a9e46c67dc325e5691e645a28d35fa92d0a7d7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://88268eedce3527d3276d427a6422e5f19469578c07a33b209ab0438d1a7468f7",
-				"dweb:/ipfs/QmVm67qvUdQ6AVHsJRNL9vSfv8rRW8m3KZRTZkEUHMRAo2"
+				"bzz-raw://b7471adfb5d853fa2b91c54b60dcd7146025a7230536c9c5af0aefbcf32a38b7",
+				"dweb:/ipfs/QmfDbDNnZR7tUyow7SrdX1JrmwrYPoX6Ek5NSFmRzNe69r"
 			]
 		}
 	},

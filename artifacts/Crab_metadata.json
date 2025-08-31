@@ -6,7 +6,13 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_initialMint",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -303,9 +309,9 @@
 				"name": "initialMint",
 				"outputs": [
 					{
-						"internalType": "uint16",
+						"internalType": "uint256",
 						"name": "",
-						"type": "uint16"
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -339,7 +345,7 @@
 				"inputs": [],
 				"name": "mint",
 				"outputs": [],
-				"stateMutability": "payable",
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -742,7 +748,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/crabToken.sol": "Crab"
+			"contracts/CrabToken.sol": "Crab"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -876,12 +882,12 @@
 				"dweb:/ipfs/QmVUSvooZKEdEdap619tcJjTLcAuH6QBdZqAzWwnAXZAWJ"
 			]
 		},
-		"contracts/crabToken.sol": {
-			"keccak256": "0x6f11aa6b06a52ef1bcb63966ca5977710f2e5ae86e4c140c0ffc078e7bd791bc",
+		"contracts/CrabToken.sol": {
+			"keccak256": "0x7b0aa9499abceb33e8154481cecaa38905132b78629a3cbdc59774a94b3448da",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9b0f7beeaeb8a3eda2d83d1d2402297e7553fa0b920ed0641296e8dae597083c",
-				"dweb:/ipfs/QmPZT78gTLzcwr19Vjs9VfTd2FMhtKtAHS8Gpm5Gb1K7YM"
+				"bzz-raw://b327176569b2ae37bd9a9dcb0281a3a0f9b251bf40d600e2a7b05b7248b2e0c1",
+				"dweb:/ipfs/Qma8iChdPCbiCy7oxEk6AYxEcQcUAQcGxf5SSXQo2DDpSQ"
 			]
 		}
 	},
