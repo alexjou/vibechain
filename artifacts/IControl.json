@@ -55,7 +55,7 @@
 			"checkTask(uint256)": "974e5d6d",
 			"depositExternal(string)": "2e25211d",
 			"donate(address,uint256,string)": "8488893a",
-			"setTask(string,string,uint256,uint256,string)": "dd7ca0cf",
+			"setTask(address,string,string,uint256,uint256,string)": "20a063dc",
 			"withdraw(uint256)": "2e1a7d4d"
 		}
 	},
@@ -146,7 +146,7 @@
 			"inputs": [
 				{
 					"internalType": "address",
-					"name": "donator",
+					"name": "beneficiary",
 					"type": "address"
 				},
 				{
@@ -167,6 +167,11 @@
 		},
 		{
 			"inputs": [
+				{
+					"internalType": "address payable",
+					"name": "copAddr",
+					"type": "address"
+				},
 				{
 					"internalType": "string",
 					"name": "tipo",

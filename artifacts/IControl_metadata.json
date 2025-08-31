@@ -91,7 +91,7 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "donator",
+						"name": "beneficiary",
 						"type": "address"
 					},
 					{
@@ -112,6 +112,11 @@
 			},
 			{
 				"inputs": [
+					{
+						"internalType": "address payable",
+						"name": "copAddr",
+						"type": "address"
+					},
 					{
 						"internalType": "string",
 						"name": "tipo",
@@ -185,11 +190,11 @@
 	},
 	"sources": {
 		"contracts/IControl.sol": {
-			"keccak256": "0xeba9fc22339dabc1b806535bc8ebdf42791af7cdf473ed216bcbd065ccde2746",
+			"keccak256": "0xe035828a3cee17303d566503ad081e7ae0f1fce7ac91e4bd15c36f7c20701113",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://86de0c3cd31a262816e695018e566ff554a49ff6e230c1857c91f8af6da8a7c3",
-				"dweb:/ipfs/QmdckCi9PcpeLXy1dUdVTT71LEoJRsuMWRG9dv1cNXtLbM"
+				"bzz-raw://17b8e175889fe0eb338df95528036dc147516d59ee3ce66da63cd051092d25e7",
+				"dweb:/ipfs/QmXJLzh9aKAAvAQWnqrpwqRTzXyXgoL2aJfnxiY1WQX4LZ"
 			]
 		}
 	},

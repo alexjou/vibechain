@@ -37,33 +37,14 @@
 				"inputs": [
 					{
 						"indexed": true,
-						"internalType": "address",
-						"name": "from",
-						"type": "address"
-					},
-					{
-						"indexed": false,
 						"internalType": "uint256",
-						"name": "amount",
+						"name": "taskId",
 						"type": "uint256"
 					},
 					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "message",
-						"type": "string"
-					}
-				],
-				"name": "Deposit",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "beneficiary",
+						"name": "donor",
 						"type": "address"
 					},
 					{
@@ -80,6 +61,31 @@
 					}
 				],
 				"name": "DonationMade",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "taskId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "cooperative",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "DonationReleased",
 				"type": "event"
 			},
 			{
@@ -243,44 +249,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "user",
-						"type": "address"
-					}
-				],
-				"name": "checkBalance",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "user",
-						"type": "address"
-					}
-				],
-				"name": "checkCoopBalance",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "uint256",
 						"name": "id",
 						"type": "uint256"
@@ -294,26 +262,8 @@
 			{
 				"inputs": [
 					{
-						"internalType": "string",
-						"name": "message",
-						"type": "string"
-					}
-				],
-				"name": "depositExternal",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "beneficiary",
-						"type": "address"
-					},
-					{
 						"internalType": "uint256",
-						"name": "value",
+						"name": "taskId",
 						"type": "uint256"
 					},
 					{
@@ -322,7 +272,7 @@
 						"type": "string"
 					}
 				],
-				"name": "donate",
+				"name": "donateToTask",
 				"outputs": [],
 				"stateMutability": "payable",
 				"type": "function"
@@ -387,7 +337,25 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "retainedFees",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
+					{
+						"internalType": "address payable",
+						"name": "copAddr",
+						"type": "address"
+					},
 					{
 						"internalType": "string",
 						"name": "tipo",
@@ -397,11 +365,6 @@
 						"internalType": "string",
 						"name": "descr",
 						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "value",
-						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
@@ -440,14 +403,8 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"name": "withdraw",
+				"inputs": [],
+				"name": "withdrawFees",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -458,6 +415,7 @@
 			}
 		],
 		"devdoc": {
+			"details": "Manages cooperative tasks and donations with fee retention and pause control.",
 			"errors": {
 				"OwnableInvalidOwner(address)": [
 					{
@@ -472,16 +430,47 @@
 			},
 			"kind": "dev",
 			"methods": {
+				"auditTask(uint256,string)": {
+					"details": "Adds audit comments to a task."
+				},
+				"checkTask(uint256)": {
+					"details": "Marks a task as finished and releases 97.5% of donations to the cooperative. Retains 2.5% as platform fee."
+				},
+				"donateToTask(uint256,string)": {
+					"details": "Users donate to a specific task. Funds are held until task is completed."
+				},
+				"getCooperative(address)": {
+					"details": "Returns the Cooperative contract associated with an address."
+				},
+				"isPaused()": {
+					"details": "Returns the current pause state."
+				},
 				"owner()": {
 					"details": "Returns the address of the current owner."
+				},
+				"pause()": {
+					"details": "Pauses the contract."
 				},
 				"renounceOwnership()": {
 					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
 				},
+				"retainedFees()": {
+					"details": "Returns the current retained fee balance."
+				},
+				"setTask(address,string,string,uint256,string)": {
+					"details": "Creates a new cooperative task."
+				},
 				"transferOwnership(address)": {
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				},
+				"unpause()": {
+					"details": "Unpauses the contract."
+				},
+				"withdrawFees()": {
+					"details": "Allows the owner to withdraw accumulated platform fees."
 				}
 			},
+			"title": "MangueChain",
 			"version": 1
 		},
 		"userdoc": {
@@ -531,27 +520,19 @@
 			]
 		},
 		"contracts/Cooperative.sol": {
-			"keccak256": "0x991071de9d47183de7f95d9984568756a8f1cb5383e6c7f55c794250abac9e9c",
+			"keccak256": "0x0a149f6b101fd5b82d8471d32a15827db9b5c092823ffcb99047f381e0388d66",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://799ab2480bd0ec7047b3da2521105039466a36265526b32762848147dfac828a",
-				"dweb:/ipfs/Qmbqr71J8wL8cHUsn6kKeHNzK72uHRbojBqmuN6BRPU5gL"
-			]
-		},
-		"contracts/IControl.sol": {
-			"keccak256": "0xeba9fc22339dabc1b806535bc8ebdf42791af7cdf473ed216bcbd065ccde2746",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://86de0c3cd31a262816e695018e566ff554a49ff6e230c1857c91f8af6da8a7c3",
-				"dweb:/ipfs/QmdckCi9PcpeLXy1dUdVTT71LEoJRsuMWRG9dv1cNXtLbM"
+				"bzz-raw://88268eedce3527d3276d427a6422e5f19469578c07a33b209ab0438d1a7468f7",
+				"dweb:/ipfs/QmVm67qvUdQ6AVHsJRNL9vSfv8rRW8m3KZRTZkEUHMRAo2"
 			]
 		},
 		"contracts/MangueChain.sol": {
-			"keccak256": "0xdf81061c3edc232c9fb5f956e0752f8f119fb55dcf09927b7d0ec8879ca280be",
+			"keccak256": "0xa25e38a4f401c6394a5b703333f07ae5db4a31791714d5dc9630abbd121693ed",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://06e17c77a848ccf95d5e4cd17ab74ed842175be307a722e3ab4e8c48ad197a9a",
-				"dweb:/ipfs/QmRL8ok5RmwS4YZsdPwbWqDKF4Lmsv9GQcBwefMM35thRQ"
+				"bzz-raw://894d11cbec4d4857ab7a3bf469fac406c0d9a58ba2a4bfb1b6719045b0cd37b7",
+				"dweb:/ipfs/QmTxYYB1aeE54aBnE6smfDHKeN5yAmriRamBLAQj5dGYHJ"
 			]
 		}
 	},
