@@ -1,0 +1,258 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "contrato",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "criador",
+						"type": "address"
+					}
+				],
+				"name": "ContratoCriado",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_contratante",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_contratado",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_intermediador",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_advogado",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_descricao",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_valor",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_ipfsLinkTermos",
+						"type": "string"
+					}
+				],
+				"name": "criarContrato",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "indice",
+						"type": "uint256"
+					}
+				],
+				"name": "getContratoPorIndice",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getContratosCriados",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "criador",
+						"type": "address"
+					}
+				],
+				"name": "getContratosPorCriador",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getQuantidadeContratosCriados",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "criador",
+						"type": "address"
+					}
+				],
+				"name": "getQuantidadeContratosPorCriador",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address[]",
+						"name": "novosContratos",
+						"type": "address[]"
+					}
+				],
+				"name": "redefinirContratosCriados",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "criador",
+						"type": "address"
+					},
+					{
+						"internalType": "address[]",
+						"name": "novosContratos",
+						"type": "address[]"
+					}
+				],
+				"name": "redefinirContratosPorCriador",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "removerUltimoContratoCriado",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "criador",
+						"type": "address"
+					}
+				],
+				"name": "removerUltimoContratoDoCriador",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contractFactory.sol": "ContratoPrestacaoServicoFactory"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+			"keccak256": "0xa535a5df777d44e945dd24aa43a11e44b024140fc340ad0dfe42acf4002aade1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://41319e7f621f2dc3733511332c4fd032f8e32ad2aa7fd6f665c19741d9941a34",
+				"dweb:/ipfs/QmcYR3bd862GD1Bc7jwrU9bGxrhUu5na1oP964bDCu2id1"
+			]
+		},
+		"PrestacaoServicoSeguro.sol": {
+			"keccak256": "0x802567ca527dd18b335a70eec018cf4d473cf729e5d5df987f41ecde2923411d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e91d112daa9188f38f68a089fbc2b12b092aa6c19d216def88eeab27f41d60dc",
+				"dweb:/ipfs/QmdzbYrJmyFya3QSiMK38wSWeD9uhKcFwjpCxQommiw7dx"
+			]
+		},
+		"contractFactory.sol": {
+			"keccak256": "0x83fc1817cfc7ca3d289d83370c96bdd646199e2d0e3b094e1a1e2a96cdcc761a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3f065a424ff30d58886c860a18499a741395210f6406868b98aac88c8b3502b0",
+				"dweb:/ipfs/QmQchR3fV1Qgm8h8p3pFoNyAgX2nsvxJeiveV1skHHratL"
+			]
+		}
+	},
+	"version": 1
+}

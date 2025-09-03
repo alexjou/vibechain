@@ -1,0 +1,676 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_nomecontratante",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_nomecontratado",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "_contratante",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_contratado",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_intermediador",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_advogado",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_descricao",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_valor",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_ipfsLinkTermos",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "_contratoFactory",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "parte",
+						"type": "address"
+					}
+				],
+				"name": "ContratoAceito",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "parte",
+						"type": "address"
+					}
+				],
+				"name": "ContratoCancelado",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "pagador",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "valor",
+						"type": "uint256"
+					}
+				],
+				"name": "PagamentoRealizado",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "advogado",
+						"type": "address"
+					}
+				],
+				"name": "ReconhecimentoJuridico",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [],
+				"name": "ServicoConcluido",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [],
+				"name": "ServicoIniciado",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [],
+				"name": "ServicoPausado",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [],
+				"name": "ServicoRetomado",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "aceitarContrato",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "cancelarContrato",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "concluirServico",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "contratoFactory",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAdvogado",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getContratado",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getContratante",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getDescricaoServico",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getIntermediador",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getLinkTermos",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getListaPartes",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_parte",
+						"type": "address"
+					}
+				],
+				"name": "getParte",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "carteira",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "nome",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "aceitou",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getStatusServico",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getValorServico",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "iniciarServico",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "isReconhecidoJuridicamente",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "listaPartes",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "pagarServico",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "partes",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "carteira",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "nome",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "aceitou",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "pausarServico",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "reconhecerJuridicamente",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "retomarServico",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "servico",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "descricao",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "valor",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum PrestacaoServicoSeguro.Status",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "nomecontratante",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "nomecontratado",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "contratado",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "contratante",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "intermediador",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "advogado",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "reconhecidoJuridicamente",
+						"type": "bool"
+					},
+					{
+						"internalType": "string",
+						"name": "ipfsLinkTermos",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "todasPartesAceitaram",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"author": "Jose",
+			"details": "Inclui validação jurídica, controle de status e retenção de taxa para contrato factory.",
+			"kind": "dev",
+			"methods": {
+				"constructor": {
+					"params": {
+						"_contratoFactory": "Endereço do contrato factory que receberá a taxa de 1.5%"
+					}
+				},
+				"getAdvogado()": {
+					"returns": {
+						"_0": "Endereço do advogado responsável"
+					}
+				},
+				"getContratado()": {
+					"returns": {
+						"_0": "Endereço do contratado"
+					}
+				},
+				"getContratante()": {
+					"returns": {
+						"_0": "Endereço do contratante"
+					}
+				},
+				"getDescricaoServico()": {
+					"returns": {
+						"_0": "Descrição do serviço"
+					}
+				},
+				"getIntermediador()": {
+					"returns": {
+						"_0": "Endereço do intermediador"
+					}
+				},
+				"getLinkTermos()": {
+					"returns": {
+						"_0": "Link IPFS para os termos do contrato"
+					}
+				},
+				"getListaPartes()": {
+					"returns": {
+						"_0": "Lista de endereços de todas as partes envolvidas"
+					}
+				},
+				"getParte(address)": {
+					"params": {
+						"_parte": "Endereço da parte"
+					},
+					"returns": {
+						"aceitou": "Verdadeiro se a parte aceitou o contrato",
+						"carteira": "Endereço da carteira",
+						"nome": "Nome da parte"
+					}
+				},
+				"getStatusServico()": {
+					"returns": {
+						"_0": "Status atual do serviço em formato string"
+					}
+				},
+				"getValorServico()": {
+					"returns": {
+						"_0": "Valor acordado do serviço"
+					}
+				},
+				"isReconhecidoJuridicamente()": {
+					"returns": {
+						"_0": "Verdadeiro se o contrato foi reconhecido juridicamente"
+					}
+				},
+				"todasPartesAceitaram()": {
+					"returns": {
+						"_0": "true se todas aceitaram, false caso contrário"
+					}
+				}
+			},
+			"title": "Contrato de Prestação de Serviço com Reconhecimento Jurídico",
+			"version": 1
+		},
+		"userdoc": {
+			"events": {
+				"ContratoAceito(address)": {
+					"notice": "Emite quando uma parte aceita o contrato"
+				},
+				"ContratoCancelado(address)": {
+					"notice": "Emite quando o contrato é cancelado"
+				},
+				"PagamentoRealizado(address,uint256)": {
+					"notice": "Emite quando o pagamento é realizado"
+				},
+				"ReconhecimentoJuridico(address)": {
+					"notice": "Emite quando o contrato é reconhecido juridicamente"
+				},
+				"ServicoConcluido()": {
+					"notice": "Emite quando o serviço é concluído"
+				},
+				"ServicoIniciado()": {
+					"notice": "Emite quando o serviço é iniciado"
+				},
+				"ServicoPausado()": {
+					"notice": "Emite quando o serviço é pausado"
+				},
+				"ServicoRetomado()": {
+					"notice": "Emite quando o serviço é retomado"
+				}
+			},
+			"kind": "user",
+			"methods": {
+				"aceitarContrato()": {
+					"notice": "Aceita os termos do contrato"
+				},
+				"cancelarContrato()": {
+					"notice": "Cancela o contrato antes da execução"
+				},
+				"concluirServico()": {
+					"notice": "Conclui o serviço"
+				},
+				"getParte(address)": {
+					"notice": "Retorna os dados de uma parte específica"
+				},
+				"iniciarServico()": {
+					"notice": "Inicia o serviço após aceitação"
+				},
+				"pagarServico()": {
+					"notice": "Realiza o pagamento do serviço com retenção de taxa"
+				},
+				"pausarServico()": {
+					"notice": "Pausa o serviço em andamento"
+				},
+				"reconhecerJuridicamente()": {
+					"notice": "Reconhece juridicamente o contrato"
+				},
+				"retomarServico()": {
+					"notice": "Retoma o serviço pausado"
+				},
+				"todasPartesAceitaram()": {
+					"notice": "Verifica se todas as partes aceitaram o contrato"
+				}
+			},
+			"notice": "Este contrato formaliza acordos de prestação de serviço entre contratante e contratado.",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"PrestacaoServicoSeguroN.sol": "PrestacaoServicoSeguro"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+			"keccak256": "0xa535a5df777d44e945dd24aa43a11e44b024140fc340ad0dfe42acf4002aade1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://41319e7f621f2dc3733511332c4fd032f8e32ad2aa7fd6f665c19741d9941a34",
+				"dweb:/ipfs/QmcYR3bd862GD1Bc7jwrU9bGxrhUu5na1oP964bDCu2id1"
+			]
+		},
+		"PrestacaoServicoSeguroN.sol": {
+			"keccak256": "0x152caecf5a98a00e96c4eb6caab7ac170d5de48d082c02c6d840e04a751cde01",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e4044c6c248ca1c667e88d7d7b9acb3b6b83293a64dad9f6878b6525835d061d",
+				"dweb:/ipfs/QmPWTGdmpBaP8UPDW2VcrntMWq5DJ3MKxx9nHYdoiFEvks"
+			]
+		}
+	},
+	"version": 1
+}
